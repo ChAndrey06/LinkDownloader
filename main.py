@@ -22,6 +22,10 @@ def getLinkType(link: str) -> str | bool:
         {
             'pattern': r'^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$',
             'link_type': 'youtube'
+        },
+        {
+            'pattern': r'(?:https?:\/\/)?(?:www\.)?(?:music\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/)?([a-zA-Z0-9_-]{11})',
+            'link_type': 'youtube'
         }
     ]
 
