@@ -10,6 +10,9 @@ from pyrogram import enums
 from link_downloader import LinkDownloader
 
 
+ld = LinkDownloader()
+
+
 def getLinkType(link: str) -> str | bool:
     pairs = [
         {
@@ -17,7 +20,7 @@ def getLinkType(link: str) -> str | bool:
             'link_type': 'tiktok'
         },
         {
-            'pattern': r'https?:\/\/(?:www\.)?(?:music\.)?youtube\.com\/watch\?v=[\w-]+(?:&list=[\w-]+)?(?:&ab_channel=[\w%]+)?',
+            'pattern': r'^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$',
             'link_type': 'youtube'
         }
     ]
@@ -69,14 +72,18 @@ async def download_handler(client: Client, message: Message, value: str | None, 
     if not link_type:
         return
 
-    result = await LinkDownloader().get_download_link(result, link_type)
+    try:
+        result = await ld.get_download_link(result, link_type)
+    except Exception as e:
+        await message.reply(f'{e}', True)
+        return
 
     print(result)
     
     if not result:
         return
     
-    await client.send_audio(message.chat.id, result, file_name='.mp3')
+    await message.reply_audio(result, quote=True, file_name='.mp3')
 
 
 app = Client('my_account', api_id=0, api_hash='')

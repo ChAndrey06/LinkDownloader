@@ -48,19 +48,3 @@ class LinkDownloader:
         YouTube(url).streams.filter(only_audio=True).order_by('abr').desc().first().stream_to_buffer(buffer)
 
         return buffer
-    
-        # audio_stream = YouTube(url).streams.filter(only_audio=True).order_by('abr').desc().first()
-        # audio_stream.download()
-
-        # return audio_stream.get_file_path()
-
-
-async def main():
-    tiktok_downloader = LinkDownloader()
-    url = 'https://vm.tiktok.com/ZGJb1sCmc/'
-    download_link = await tiktok_downloader.get_download_link(url)
-    print('Download link:', download_link)
-
-if __name__ == '__main__':
-    import asyncio
-    asyncio.run(main())
