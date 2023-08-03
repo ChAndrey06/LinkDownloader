@@ -83,7 +83,7 @@ async def download_handler(client: Client, message: Message, value: str | None, 
     if not result:
         return
     
-    await message.reply_audio(result, quote=True, file_name='.mp3')
+    await message.reply_audio(result, quote=True)
 
 
 app = Client('my_account', api_id=9779069, api_hash='366966664618581ccb5280193bed613e')
